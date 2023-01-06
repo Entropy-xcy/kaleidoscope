@@ -3,11 +3,11 @@
 //
 #include <iostream>
 #include "kaleidoscope/Lexer/Lexer.h"
-#include "kaleidoscope/Parser/AST.h"
+#include "kaleidoscope/Parser/Parser.h"
 
 int main() {
     kaleidoscope::Lexer lexer;
-    kaleidoscope::ExprAST ast;
+    auto parser = kaleidoscope::Parser(lexer);
 
-    std::cout << "Hello, World!" << std::endl;
+    parser.MainLoop();
 }

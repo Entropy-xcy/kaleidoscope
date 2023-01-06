@@ -15,9 +15,9 @@ namespace kaleidoscope {
         tok_number = -5,
     };
     class Lexer{
+    public:
         std::string IdentifierStr;
         double NumVal;
-    public:
         int gettok();
     };
 }
