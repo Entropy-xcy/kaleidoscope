@@ -7,5 +7,9 @@ target_link_libraries(kaleidoscope
         )
 target_link_libraries(kaleidoscope
         PRIVATE
+        kaleidoscopeCodeGen
+        )
+target_link_libraries(kaleidoscope
+        PRIVATE
         kaleidoscopeParser
         )
