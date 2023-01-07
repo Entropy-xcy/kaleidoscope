@@ -46,44 +46,49 @@ namespace kaleidoscope {
     };
 
     class BinaryExprAST : public ExprAST {
-        char Op;
-        std::unique_ptr<ExprAST> LHS, RHS;
 
     public:
         BinaryExprAST(char op, std::unique_ptr<ExprAST> LHS,
                       std::unique_ptr<ExprAST> RHS)
-                : Op(op), LHS(std::move(LHS)), RHS(std::move(RHS)) {}
+                : LHS(std::move(LHS)), RHS(std::move(RHS)), Op(op) {}
+
+        std::unique_ptr<ExprAST> LHS;
+        std::unique_ptr<ExprAST> RHS;
+        char Op;
     };
 
     class CallExprAST : public ExprAST {
-        std::string Callee;
-        std::vector<std::unique_ptr<ExprAST>> Args;
 
     public:
         CallExprAST(std::string Callee,
                     std::vector<std::unique_ptr<ExprAST>> Args)
                 : Callee(std::move(Callee)), Args(std::move(Args)) {}
+
+        std::string Callee;
+        std::vector<std::unique_ptr<ExprAST>> Args;
     };
 
     class PrototypeAST {
-        std::string Name;
-        std::vector<std::string> Args;
 
     public:
         PrototypeAST(std::string name, std::vector<std::string> Args)
-                : Name(std::move(name)), Args(std::move(Args)) {}
+                : Args(std::move(Args)), Name(std::move(name)) {}
 
         [[nodiscard]] std::string getName() const { return Name; }
+
+        std::vector<std::string> Args;
+        std::string Name;
     };
 
     class FunctionAST {
-        std::unique_ptr<PrototypeAST> Proto;
-        std::unique_ptr<ExprAST> Body;
 
     public:
         FunctionAST(std::unique_ptr<PrototypeAST> Proto,
                     std::unique_ptr<ExprAST> Body)
                 : Proto(std::move(Proto)), Body(std::move(Body)) {}
+
+        std::unique_ptr<PrototypeAST> Proto;
+        std::unique_ptr<ExprAST> Body;
     };
 }
 

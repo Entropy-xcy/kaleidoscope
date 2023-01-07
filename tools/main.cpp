@@ -4,10 +4,12 @@
 #include <iostream>
 #include "kaleidoscope/Lexer/Lexer.h"
 #include "kaleidoscope/Parser/Parser.h"
+#include "kaleidoscope/CodeGen/CodeGen.h"
 
 int main() {
     kaleidoscope::Lexer lexer;
-    auto parser = kaleidoscope::Parser(lexer);
+    auto Parser = kaleidoscope::Parser(lexer);
 
-    parser.MainLoop();
+    auto codegen = kaleidoscope::CodeGen(Parser);
+    codegen.MainLoop();
 }

@@ -13,8 +13,6 @@ namespace kaleidoscope{
     class Parser {
         // States
         Lexer lexer;
-        int CurTok;
-        int getNextToken();
 
         std::map<char, int> BinopPrecedence;
         int GetTokPrecedence();
@@ -31,9 +29,6 @@ namespace kaleidoscope{
 
         std::unique_ptr<ExprAST> ParseExpression();
         std::unique_ptr<PrototypeAST> ParsePrototype();
-        std::unique_ptr<FunctionAST> ParseDefinition();
-        std::unique_ptr<FunctionAST> ParseTopLevelExpr();
-        std::unique_ptr<PrototypeAST> ParseExtern();
 
     public:
         explicit Parser(Lexer &lexer): lexer(lexer) {
@@ -48,6 +43,15 @@ namespace kaleidoscope{
         void HandleTopLevelExpression();
         void MainLoop();
 
+        std::unique_ptr<FunctionAST> ParseDefinition();
+
+        int getNextToken();
+
+        std::unique_ptr<PrototypeAST> ParseExtern();
+
+        std::unique_ptr<FunctionAST> ParseTopLevelExpr();
+
+        int CurTok;
     };
 
     std::unique_ptr<ExprAST> ParseNumberExpr();

@@ -6,10 +6,12 @@
 #define KALEIDOSCOPE_CODEGEN_H
 
 #include "kaleidoscope/Parser/AST.h"
+#include "kaleidoscope/Parser/Parser.h"
 
 using namespace llvm;
 namespace kaleidoscope{
     class CodeGen {
+        Parser parser;
         std::unique_ptr<LLVMContext> TheContext;
         std::unique_ptr<IRBuilder<>> Builder;
         std::unique_ptr<Module> TheModule;
@@ -18,7 +20,7 @@ namespace kaleidoscope{
         Value *LogError(const char *Str);
 
     public:
-        CodeGen();
+        explicit CodeGen(Parser parser);
         Value* codegen(ExprAST* expr);
         Value* codegen(NumberExprAST* expr);
         Value* codegen(VariableExprAST* expr);
@@ -26,6 +28,12 @@ namespace kaleidoscope{
         Value* codegen(CallExprAST* expr);
         Function* codegen(PrototypeAST* expr);
         Function* codegen(FunctionAST* expr);
+
+        void HandleDefinition();
+        void HandleExtern();
+        void HandleTopLevelExpression();
+
+        void MainLoop();
     };
 }
 
