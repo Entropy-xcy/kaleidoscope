@@ -1,3 +1,3 @@
-add_tinylang_library(kaleidoscopeLexer
+add_kaleidoscope_library(kaleidoscopeLexer
         Lexer.cpp
         )

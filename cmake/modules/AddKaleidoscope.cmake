@@ -1,8 +1,8 @@
-macro(add_tinylang_subdirectory name)
+macro(add_kaleidoscope_subdirectory name)
     add_llvm_subdirectory(TINYLANG TOOL ${name})
 endmacro()
 
-macro(add_tinylang_library name)
+macro(add_kaleidoscope_library name)
     if(BUILD_SHARED_LIBS)
         set(LIBTYPE SHARED)
     else()
@@ -22,12 +22,12 @@ macro(add_tinylang_library name)
     endif()
 endmacro()
 
-macro(add_tinylang_executable name)
+macro(add_kaleidoscope_executable name)
     add_llvm_executable(${name} ${ARGN} )
 endmacro()
 
-macro(add_tinylang_tool name)
-    add_tinylang_executable(${name} ${ARGN})
+macro(add_kaleidoscope_tool name)
+    add_kaleidoscope_executable(${name} ${ARGN})
     install(TARGETS ${name}
             RUNTIME DESTINATION bin
             COMPONENT ${name})

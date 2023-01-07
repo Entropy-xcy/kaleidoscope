@@ -1,3 +1,3 @@
-add_tinylang_library(kaleidoscopeCodeGen
+add_kaleidoscope_library(kaleidoscopeCodeGen
         CodeGen.cpp
         )

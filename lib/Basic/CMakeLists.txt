@@ -1,3 +1,3 @@
-add_tinylang_library(tinylangBasic
+add_kaleidoscope_library(tinylangBasic
         Version.cpp
         )
