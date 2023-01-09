@@ -1,4 +1,3 @@
-//
 // Created by entropy on 1/6/23.
 //
 
@@ -111,6 +110,7 @@ Function *kaleidoscope::CodeGen::codegen(kaleidoscope::FunctionAST *expr) {
 
         // Validate the generated code, checking for consistency.
         verifyFunction(*TheFunction);
+        TheFPM->run(*TheFunction);
 
         return TheFunction;
     }
@@ -209,4 +209,20 @@ void kaleidoscope::CodeGen::MainLoop() {
                 break;
         }
     }
+}
+
+void kaleidoscope::CodeGen::InitializeModuleAndPassManager() {
+    TheModule = std::make_unique<Module>("my cool jit", *TheContext);
+    // Function Pass Manager
+    TheFPM = std::make_unique<legacy::FunctionPassManager>(TheModule.get());
+    // Do simple "peephole" optimizations and bit-twiddling optzns.
+    TheFPM->add(createInstructionCombiningPass());
+    // Reassociate expressions.
+    TheFPM->add(createReassociatePass());
+    // Eliminate Common SubExpressions.
+    TheFPM->add(createGVNPass());
+    // Simplify the control flow graph (deleting unreachable blocks, etc).
+    TheFPM->add(createCFGSimplificationPass());
+
+    TheFPM->doInitialization();
 }

@@ -11,6 +11,6 @@ int main() {
     auto Parser = kaleidoscope::Parser(lexer);
 
     auto codegen = kaleidoscope::CodeGen(Parser);
+    codegen.InitializeModuleAndPassManager();
     codegen.MainLoop();
-
 }

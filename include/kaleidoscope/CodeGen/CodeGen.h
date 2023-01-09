@@ -8,6 +8,12 @@
 #include "kaleidoscope/Parser/AST.h"
 #include "kaleidoscope/Parser/Parser.h"
 
+#include "llvm/IR/LegacyPassManager.h"
+#include "llvm/Transforms/InstCombine/InstCombine.h"
+#include "llvm/Transforms/Scalar.h"
+#include "llvm/Transforms/Scalar/GVN.h"
+#include "kaleidoscope/JIT/KaleidoscopeJIT.h"
+
 using namespace llvm;
 namespace kaleidoscope{
     class CodeGen {
@@ -15,7 +21,9 @@ namespace kaleidoscope{
         std::unique_ptr<LLVMContext> TheContext;
         std::unique_ptr<IRBuilder<>> Builder;
         std::unique_ptr<Module> TheModule;
+        std::unique_ptr<legacy::FunctionPassManager> TheFPM;
         std::map<std::string, Value*> NamedValues;
+        std::unique_ptr<llvm::orc::KaleidoscopeJIT> TheJIT;
         Value *LogErrorV(const char *Str);
         Value *LogError(const char *Str);
 
@@ -32,6 +40,8 @@ namespace kaleidoscope{
         void HandleDefinition();
         void HandleExtern();
         void HandleTopLevelExpression();
+
+        void InitializeModuleAndPassManager();
 
         void MainLoop();
     };
