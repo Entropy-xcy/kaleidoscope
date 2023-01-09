@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.4.3)
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     project(Kaleidoscope)
 
-    find_package(LLVM REQUIRED HINTS "${LLVM_CMAKE_PATH}")
+    find_package(LLVM 12 HINTS "${LLVM_CMAKE_PATH}")
     list(APPEND CMAKE_MODULE_PATH ${LLVM_DIR})
 
     include(AddLLVM)

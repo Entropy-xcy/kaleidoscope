@@ -27,6 +27,8 @@ namespace kaleidoscope{
         Value *LogErrorV(const char *Str);
         Value *LogError(const char *Str);
 
+        ExitOnError ExitOnErr;
+
     public:
         explicit CodeGen(Parser parser);
         Value* codegen(ExprAST* expr);
@@ -42,6 +44,9 @@ namespace kaleidoscope{
         void HandleTopLevelExpression();
 
         void InitializeModuleAndPassManager();
+        void InitializeNativeTarget();
+        void InitializeNativeTargetAsmPrinter();
+        void InitializeNativeTargetAsmParser();
 
         void MainLoop();
     };

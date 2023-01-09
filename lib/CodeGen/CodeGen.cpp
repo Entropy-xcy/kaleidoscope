@@ -13,6 +13,12 @@ kaleidoscope::CodeGen::CodeGen(Parser parser) : parser(std::move(parser)) {
     TheContext = std::make_unique<LLVMContext>();
     TheModule = std::make_unique<Module>("my cool jit", *TheContext);
     Builder = std::make_unique<IRBuilder<>>(*TheContext);
+
+    InitializeNativeTarget();
+    InitializeNativeTargetAsmPrinter();
+    InitializeNativeTargetAsmParser();
+
+    TheJIT = ExitOnErr(llvm::orc::KaleidoscopeJIT::Create());
 }
 
 Value *kaleidoscope::CodeGen::codegen(kaleidoscope::NumberExprAST *expr) {
@@ -225,4 +231,16 @@ void kaleidoscope::CodeGen::InitializeModuleAndPassManager() {
     TheFPM->add(createCFGSimplificationPass());
 
     TheFPM->doInitialization();
+}
+
+void kaleidoscope::CodeGen::InitializeNativeTarget() {
+
+}
+
+void kaleidoscope::CodeGen::InitializeNativeTargetAsmPrinter() {
+
+}
+
+void kaleidoscope::CodeGen::InitializeNativeTargetAsmParser() {
+
 }
